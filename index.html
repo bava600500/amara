@@ -2,13 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>امورتي تحبيني؟ 💗</title>
+    <title>امارتي تحبيني؟ 💗</title>
+
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: "Tajawal", sans-serif;
-            background: #ffd6e8; /* خلفية وردية ناعمة */
+            background: #ffd6e8;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -91,81 +92,65 @@
 
     let noClick = 0;
 
-    // زر "لا"
-    noBtn.addEventListener("click", () => {
+    // زر لا
+    noBtn.onclick = () => {
         noClick++;
         if (noClick === 1) {
             question.textContent = "اخخ ليش ما تحبيني 😢";
         } else if (noClick === 2) {
-            question.textContent = "خرب... ليش هيج؟ حبينييي 😭";
+            question.textContent = "خرب ليش هيج حبينييي 😭";
         } else {
-            question.textContent = "كافي عاد! يلا حبيني 😤💕";
+            question.textContent = "كافي عاد يلا حبيني 😤💕";
         }
-    });
+    };
 
-    // زر "اي"
-    yesBtn.addEventListener("click", () => {
+    // زر اي
+    yesBtn.onclick = () => {
         question.textContent = "يروحي واني اموت عليج ❤️";
+        yesBtn.classList.add("hidden");
+        noBtn.classList.add("hidden");
 
-        yesBtn.remove();  
-        noBtn.remove();
-
-        let loveBtn = document.createElement("button");
+        const loveBtn = document.createElement("button");
         loveBtn.textContent = "حبيبي 🫢";
         loveBtn.className = "yes";
 
-        let notMeBtn = document.createElement("button");
+        const notMeBtn = document.createElement("button");
         notMeBtn.textContent = "ماا انا";
         notMeBtn.className = "no";
 
         main.appendChild(loveBtn);
         main.appendChild(notMeBtn);
 
-        // زر (حبيبي)
-        loveBtn.addEventListener("click", () => {
-            question.textContent = "بس هااا... آني أكثر فهمتي؟ 😏💕";
-
+        loveBtn.onclick = () => {
+            question.textContent = "بس هااا آني أكثر فهمتي؟ 😏💕";
             loveBtn.remove();
-
-            let onlyNotMe = document.createElement("button");
-            onlyNotMe.textContent = "ماا انا";
-            onlyNotMe.className = "no";
-
             notMeBtn.remove();
-            main.appendChild(onlyNotMe);
 
-            onlyNotMe.addEventListener("click", () => {
-                question.textContent = "آنه؟ 😒";
-                onlyNotMe.remove();
+            const lastBtn = document.createElement("button");
+            lastBtn.textContent = "لا آنا";
+            lastBtn.className = "no";
+            main.appendChild(lastBtn);
 
-                let lastNo = document.createElement("button");
-                lastNo.textContent = "لا آنا";
-                lastNo.className = "no";
-                main.appendChild(lastNo);
+            lastBtn.onclick = endPage;
+        };
 
-                lastNo.addEventListener("click", () => {
-                    main.classList.add("hidden");
-                    lastPage.classList.remove("hidden");
-                });
-            });
-        });
-
-        // زر (ماا انا)
-        notMeBtn.addEventListener("click", () => {
+        notMeBtn.onclick = () => {
             question.textContent = "آنه؟ 😒";
             notMeBtn.remove();
 
-            let lastNo = document.createElement("button");
-            lastNo.textContent = "لا آنا";
-            lastNo.className = "no";
-            main.appendChild(lastNo);
+            const lastBtn = document.createElement("button");
+            lastBtn.textContent = "لا آنا";
+            lastBtn.className = "no";
+            main.appendChild(lastBtn);
 
-            lastNo.addEventListener("click", () => {
-                main.classList.add("hidden");
-                lastPage.classList.remove("hidden");
-            });
-        });
-    });
+            lastBtn.onclick = endPage;
+        };
+    };
+
+    function endPage() {
+        main.classList.add("hidden");
+        lastPage.classList.remove("hidden");
+    }
 </script>
 
 </body>
